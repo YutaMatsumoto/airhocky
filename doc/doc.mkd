@@ -1,0 +1,78 @@
+<!-- 
+TODO
+reference links : Bullet, Assimp 
+bt..
+how to run
+-->
+
+<!--
+-->
+
+# Project Overview
+
+  This is a labyrinth program. The labyrinth consists of a ball, a board with walls, and a hole. 
+  The player can rotate the board and the ball rolls according to the tilt of
+  the baord. When the ball goes into the hole, the game is done.
+
+# User Manual
+
+
+$ program  
+. $(INITSCRIPT) && ./$< $(BALL) $(BOARD) $(VSHADER) $(FSHADER)
+
+movement
+The player can tilt the board with arrow keys.
+
+
+right click menu 
+  quit
+  pause
+  resume
+  configure -- ...
+
+![initial position](/home/yuta/Dropbox/acdc/cs480R/jikken/proj1-labyrinth/screenshots/initial-position.png)
+![close to hole](/home/yuta/Dropbox/acdc/cs480R/jikken/proj1-labyrinth/screenshots/close-to-hole.png)
+
+# Tech Manual
+
+## Overview
+This program uses two Wavefront format objects to represent the ball and the
+board. The board needs to have a hole(s). This program uses OpenGL to render
+objects within the GPU, and uses two external libraries : 
+
+* Assimp Import Library (Assimp) to read in the Wavefront mesh objects that
+  represent 3D structure and material of the objects. This program is
+  currently using the Wavefront mesh objects, but Assimp is not restricted
+  to this specific format.
+
+* Bullet Physics Engine (Bullet) to handle the collisions of the ball and
+  the board. 
+  bt...
+
+Assimp is used to convert 3D mesh objects into the formats OpenGL and Assimp can
+understand : vertex buffer objects (VBO) and Triangle Mesh object,
+respectively. After the mesh objects are converted into these formats, Bullet
+will be in charge of synchronizing the positions and orientations of the 3D
+objects. Bullet manages the transformations done for each object by one matrix
+from the position the object was originally located. This matrix is used as a
+model matrix in the vertex shader. This matrix can be obtained by
+getOpenGLMatrix() method defined on [btTransform](http://bulletphysics.com/Bullet/BulletFull/classbtTransform.html).
+
+
+In addition to these libraries, there is one convenience C++ wrapper class
+called Obj. The input to this class is a 3D mesh object file, and it creates
+and manages a Bullet object (btTriangleMesh), a model matrix, and a VBO. This
+class can communicate with Bullet with its updateModelMatrix() method that takes
+the matrix getOpenGLMatrix() (Bullet method) produces. Once the matrix is
+updated, this class can draw the object by the matrix and VBO it manages
+internally with its draw() method.
+
+## Issues
+
+  
+
+
+
+
+
+# Presentation

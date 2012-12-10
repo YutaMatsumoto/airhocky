@@ -1,0 +1,117 @@
+// per-fragment interpolated values from the vertex shader
+varying vec3 fN;
+varying vec3 fL;
+varying vec3 fE;
+varying vec3 color;
+varying vec4 outVertex;
+
+uniform vec4 AmbientProduct, DiffuseProduct, SpecularProduct;
+uniform vec4 LightPosition;
+uniform float Shininess;
+uniform vec3  SpotDirection;   // in object coordinates
+uniform float LightCutOff;     // in degrees
+
+uniform sampler2D Sampler;
+
+
+void main() 
+{ 
+    // initialize
+    vec3 lightPosition;
+    vec3 spotDirection;
+    vec3 lightDirection;
+    float angle;
+
+    // Normalize the input lighting vectors  
+    vec3 N = normalize(fN);
+    vec3 E = normalize(fE);
+    vec3 L = normalize(fL);
+
+    vec3 H = normalize( L + E );   
+    vec4 ambient = AmbientProduct;
+
+	float Kd = max(dot(L, N), 0.0);
+    vec4 diffuse = Kd*DiffuseProduct;
+    
+    float Ks = pow(max(dot(N, H), 0.0), Shininess);
+    vec4 specular = Ks*SpecularProduct;
+
+    // discard the specular highlight if the light's behind the vertex
+    if( dot(L, N) < 0.0 ) 
+	    specular = vec4(0.0, 0.0, 0.0, 1.0);
+
+
+    ///////
+    // add spotlight code
+
+    // Transforms light position and direction into eye coordinates
+    lightPosition  = (LightPosition * gl_ModelViewMatrix).xyz;
+    spotDirection  = normalize(SpotDirection * gl_NormalMatrix);
+
+    // Calculates the light vector (vector from light position to vertex)
+    vec4 vertex = outVertex;
+//vec4 vertex = gl_ModelViewMatrix * gl_Vertex;
+
+    lightDirection = normalize(vertex.xyz - lightPosition.xyz);
+
+    // Calculates the angle between the spot light direction vector and the light vector
+    angle = dot( normalize(spotDirection),
+                -normalize(lightDirection));
+    angle = max(angle,0); 
+
+
+    // Test whether vertex is located in the cone
+
+    if(acos(angle) < radians(LightCutOff))
+        gl_FragColor = vec4(1,1,0,1); // lit (yellow)
+    else
+        gl_FragColor = vec4(0,0,0,1); // unlit(black)  
+
+
+    //gl_FragColor = vec4( acos(angle), 0 , 0, 1);    
+    //gl_FragColor = vec4( vertex.x, vertex.y , vertex.z, 1);    
+
+    gl_FragColor = ambient + diffuse + specular;
+    gl_FragColor = gl_FragColor * vec4( color.rgb, 1.0 );
+    gl_FragColor.a = 1.0;
+
+    //gl_FragColor = vec4( color.rgb, 1.0 );
+    //gl_FragColor = LightPosition;
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

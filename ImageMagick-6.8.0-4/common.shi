@@ -1,0 +1,21 @@
+# Test environment
+top_srcdir='/tmp/scratch/icehockey/ImageMagick-6.8.0-4'
+top_builddir='/tmp/scratch/icehockey/ImageMagick-6.8.0-4'
+
+set -a
+COMPARE="/tmp/scratch/icehockey/ImageMagick-6.8.0-4/utilities/compare"
+COMPOSITE="/tmp/scratch/icehockey/ImageMagick-6.8.0-4/utilities/composite"
+CONJURE="/tmp/scratch/icehockey/ImageMagick-6.8.0-4/utilities/conjure"
+CONVERT="/tmp/scratch/icehockey/ImageMagick-6.8.0-4/utilities/convert"
+DISPLAY="/tmp/scratch/icehockey/ImageMagick-6.8.0-4/utilities/display"
+IDENTIFY="/tmp/scratch/icehockey/ImageMagick-6.8.0-4/utilities/identify"
+MONTAGE="/tmp/scratch/icehockey/ImageMagick-6.8.0-4/utilities/montage" 
+VALIDATE="/tmp/scratch/icehockey/ImageMagick-6.8.0-4/tests/validate"
+DRAWTEST="/tmp/scratch/icehockey/ImageMagick-6.8.0-4/tests/drawtest"
+WANDTEST="/tmp/scratch/icehockey/ImageMagick-6.8.0-4/tests/wandtest"
+LD_LIBRARY_PATH="/tmp/scratch/icehockey/ImageMagick-6.8.0-4/magick/.libs:${LD_LIBRARY_PATH}"
+MAGICK_CODER_MODULE_PATH='/tmp/scratch/icehockey/ImageMagick-6.8.0-4/coders'
+MAGICK_CONFIGURE_PATH='/tmp/scratch/icehockey/ImageMagick-6.8.0-4/config:/tmp/scratch/icehockey/ImageMagick-6.8.0-4/config'
+MAGICK_FILTER_MODULE_PATH='/tmp/scratch/icehockey/ImageMagick-6.8.0-4/filters'
+PATH="/tmp/scratch/icehockey/ImageMagick-6.8.0-4/utilities:${PATH}"
+set +a

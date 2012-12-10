@@ -1,0 +1,10 @@
+CMakeCache.txt
+imagemagick/Makefile
+ImageMagick-6.8.0-4/Makefile
+*.lo
+*.o
+*.out
+*.a
+*.a.*
+*.so
+*.so.*

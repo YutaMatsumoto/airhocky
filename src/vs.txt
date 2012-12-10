@@ -1,0 +1,31 @@
+attribute vec3 vPosition;
+attribute vec3 vNormal;
+attribute vec2 TexCoord;
+attribute vec3 vColor;
+
+// output values that will be interpolatated per-fragment
+varying vec3 fN;
+varying vec3 fE;
+varying vec3 fL;
+varying vec3 color;
+varying vec4 outVertex;
+
+uniform mat4 MVP;
+uniform vec4 LightPosition;
+uniform mat4 Projection;
+
+void main()
+{
+    fN = vNormal;
+    fE = vPosition.xyz;
+    fL = LightPosition.xyz;
+    
+    if( LightPosition.w != 0.0 ) {
+	    fL = LightPosition.xyz - vPosition.xyz;
+    }
+
+    gl_Position = MVP * vec4(vPosition, 1.0);
+    outVertex = gl_ModelViewMatrix * gl_Vertex;
+    color = vColor;
+//    color = vec3( gl_Position.x, gl_Position.y , gl_Position.z);  
+}

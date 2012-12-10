@@ -1,0 +1,12 @@
+clockwork coders    
+
+# for textures
+Activate Text
+bind
+set Tex var to 0
+
+
+
+
+# for final color in frag shader
+ color * ( diffuse + specular ) + ambient
