@@ -1,9 +1,0 @@
-merge j7.cpp and main.cpp and do texture 
-
-	shader difference
-		variable names
-		shader logic 
-		application side initialization and binding to shader variables
-	disable bullet
-
-

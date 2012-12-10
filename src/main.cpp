@@ -830,7 +830,6 @@ bool initialize()
     GLuint VertexArrayID;
     glGenVertexArrays(1, &VertexArrayID);
     glBindVertexArray(VertexArrayID);
-    std::cout << "BEGIN" << std::endl; 
 
 ///// LOAD OBJ FILES ///////////////////////////////////////////////////////////////////
 
@@ -860,23 +859,12 @@ bool initialize()
     const char* startName = "paddle2"; 
     const char* startTex  = "textures/redTex.png";
     Master paddle2( startFile, startName,startTex ); 
-    std::cout << "MID" << std::endl; 
-
-
-
-/*
-    // load the dragon
-    const char* dragonFile = "/media/KINGSTON/dragon.obj";
-    const char* dragonName = "dragon"; 
-    Master dragon( dragonFile, dragonName ); 
-*/
 
     // push all the objects onto the object vector
     objs.push_back( ball );
     objs.push_back( paddle );
     objs.push_back( floor );
     objs.push_back( paddle2 );
-//    objs.push_back( dragon );
 
     // Compile Shaders   
     program2 = InitShader( shader_vert.c_str(), shader_frag.c_str() );
@@ -884,8 +872,6 @@ bool initialize()
     // Shader Variables
     bind_shader_variables2(program2);
     init_shader_variables();
-
-
 
     //enable depth testing
     glEnable(GL_DEPTH_TEST);
@@ -898,13 +884,11 @@ bool initialize()
     // setup the list of walls
     setupWalls();
 
-
     // output a simple buffer zone from debug text to actual game output
     cout << endl << "======================================================" << endl;
 
     //and its done
     return true;
-    std::cout << "END" << std::endl; 
 }
 
 void cleanUp()
@@ -1021,7 +1005,6 @@ float dist( float x1, float y1, float x2, float y2 )
 }
 
 
-
 bool loadDragonFile( const string& fileName )
 {
       // Create an instance of the Importer class
@@ -1059,7 +1042,6 @@ void  processDragon( const aiScene* scene )
     cout << "# of Vertices/coords    : " << (*scene).mMeshes[0][0].mNumVertices << endl;
     cout << "First Vertice           : " << (*scene).mMeshes[0][0].mVertices[0].x << " " << (*scene).mMeshes[0][0].mVertices[0].y << " " << (*scene).mMeshes[0][0].mVertices[0].z << endl;
 }
-
 
 void setupWalls(){
     // for first wall: 
@@ -1259,7 +1241,6 @@ void initShaderVariables()
    }
 */
 
-
 void init_shader_variables()
 {
 
@@ -1340,7 +1321,6 @@ GLint GetAttribLocation(GLint h_prog, const char* variable_name)
     return Location;
 }
 
-
 int checkForCollisions( float xPos, float zPos, float &pX, float &pZ, float eX, float eZ )
 {
     // check for collision with the puck and the player
@@ -1410,7 +1390,6 @@ int checkForCollisions( float xPos, float zPos, float &pX, float &pZ, float eX, 
     // return nothing (0 for no collisions)
     return 0;
 }
-
 
 void renderBitmapCharacter(float x, float y, float z, void *font, string str)
 {
